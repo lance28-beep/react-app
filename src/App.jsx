@@ -26,6 +26,14 @@ const [inputValue,setInputValue] = useState('')
 const [isChecked,setIsChecked] = useState(false)
 const [selectedOption, setSelectedOption] = useState('')
 const [isDarkMode, setIsDarkMode] = useState(false);
+const [person, setPerson] = useState({name:"john",age:100})
+
+const handleIncreaseAge = () => {
+  console.log("in handleIncreaseAge (before setPerson call): ", person)
+setPerson((prevPerson) => ({...prevPerson, age: prevPerson.age + 1}))
+setPerson((prevPerson) => ({...prevPerson, age: prevPerson.age + 1}))
+console.log("in handleIncreaseAge (after setPerson call): ", person);
+}
 
   // Add or remove the "dark-mode" class from the <body> element
   useEffect(() => {
@@ -37,11 +45,12 @@ const [isDarkMode, setIsDarkMode] = useState(false);
   }, [isDarkMode]);
   return(
   <div>
-      <button onClick={() => setIsDarkMode(!isDarkMode)}>
+      <button onClick={() => setIsDarkMode(prevDarkMode => !prevDarkMode)}>
         Toggle Dark Mode
       </button>
       <p>Current Mode: {isDarkMode ? 'Dark' : 'Light'}</p>
     <div>{inputValue}</div>
+    <button onClick={handleIncreaseAge}>increase age:{person.age}</button>
     {/* {Object.keys(obj).map((key) => (
             <Cards
             key={key} // Unique key for each card
@@ -51,12 +60,13 @@ const [isDarkMode, setIsDarkMode] = useState(false);
           />
     ))} */}
 
-    <button onClick={() => setIsVisible(!isVisible)}>{isVisible? 'Hide': 'Show'}</button>
+    <button onClick={() => setIsVisible(prevIsVisible => !prevIsVisible)}>{isVisible? 'Hide': 'Show'}</button>
     {isVisible && <p>Now you See me</p>}
-    <button onClick={() => setCounts(counts + 1)}>{counts}</button>
-    <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
+    <button onClick={() => setCounts(prevCount => prevCount + 1)}>{counts}</button>
+  <input type="text" value={inputValue} onChange={(e) => setInputValue(e.target.value)}/>
     <MultiInputForm />
-    <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
+
+    <input type='checkbox' checked={isChecked} onChange={() => setIsChecked(prevChecked => !prevChecked)} />
     <p>status: {isChecked? 'true':'false'}</p>
     {isChecked && `this is ${isChecked}`}
     {selectedOption && `your choice is ${selectedOption}`}

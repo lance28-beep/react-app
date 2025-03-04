@@ -6,11 +6,11 @@ function ModalExample() {
   
     return (
       <div>
-        <button onClick={() => setIsOpen(true)}>Open Modal</button>
+        <button onClick={() => setIsOpen(prevIsOpen => !prevIsOpen)}>{!isOpen?"Open Modal":"Close Modal"}</button>
         {isOpen && (
           <div className="modal">
             <p>This is a modal!</p>
-            <button onClick={() => setIsOpen(false)}>Close</button>
+            <button onClick={() => setIsOpen(prevIsOpen => !prevIsOpen)}>Close</button>
           </div>
         )}
       </div>
